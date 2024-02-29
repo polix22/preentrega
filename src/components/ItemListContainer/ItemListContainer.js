@@ -1,24 +1,25 @@
-import { useState,useEffect } from "react"
-import{getProducts, getProductsByCategory} from "../asyncMock"
+import { useState, useEffect } from "react"
+import { getProducts, getProductsByCategory} from "../asyncMokc"
 import ItemList from "../ItemList/ItemList"
 import { useParams } from "react-router-dom"
 
 const ItemListContainer =({greeting})=>{
-    const [products, setProducts] = useState([])
-    
-    const{categoryId}= useParams()
+    const[products, setProducts]= useState([])
 
-    useEffect(() => {
+    const {categoryId }= useParams()
+
+    useEffect(()=>{
         const asyncFunc = categoryId ? getProductsByCategory : getProducts
-        
+
         asyncFunc(categoryId)
-            .then(response => {
+            .then(response => {console.log("Respuesta de la llamada asincrónica:", response);
                 setProducts(response)
             })
             .catch(error => {
-                console.error(error)
+                console.error("Error al obtener los productos:", error);
+                console.error (error)
             })
-    }, [categoryId])
+    },[categoryId])
 
     return(
         <div>
